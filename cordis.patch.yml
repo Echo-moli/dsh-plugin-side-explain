@@ -1,0 +1,4 @@
+# 作为 bundle 安装时，这条 patch 会被自动应用（dsh plugin add / profile bundles）。
+- insert:
+    - id: ui-side-explain
+      name: dsh-plugin-side-explain

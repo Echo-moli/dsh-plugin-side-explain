@@ -1,0 +1,36 @@
+{
+  "name": "dsh-plugin-side-explain",
+  "version": "0.1.0",
+  "description": "选中 DSH 对话里的任意一段，在右侧面板里追问；问答不写回会话历史，主对话不滚动。",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "selection",
+    "explain",
+    "side-panel"
+  ],
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "dsh": {
+    "client": {
+      "platform": "web"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
