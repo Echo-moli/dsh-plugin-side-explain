@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-side-explain",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "选中 DSH 对话里的任意一段，在右侧面板里追问；问答不写回会话历史，主对话不滚动。",
   "type": "module",
   "license": "MIT",
