@@ -13,8 +13,8 @@
 sequenceDiagram
     autonumber
     actor U as 你
-    participant C as 浏览器半区
-    participant H as 宿主半区
+    participant C as 浏览器侧
+    participant H as 宿主侧
     participant M as 模型
 
     U->>C: 选中正文 · Ctrl+C
@@ -48,7 +48,7 @@ sequenceDiagram
 | 同面板追问 | 回答完成后按钮变「追问」，带着前几轮问答继续；仍不写会话 |
 | 可中断 | 生成中按钮变「停止」，只断这一次请求，面板保留 |
 | 空正文诊断 | 模型没出正文时，报错里写明收到了哪些分片，便于定位 |
-| 零依赖 | 不引第三方库，Markdown 渲染自带，宿主半区只用 `ctx.webServer` / `ctx.llm` |
+| 零依赖 | 不引第三方库，Markdown 渲染自带，宿主侧只用 `ctx.webServer` / `ctx.llm` |
 
 ## 安装
 
@@ -92,10 +92,10 @@ Copy-Item . "$profile\node_modules\dsh-plugin-side-explain" -Recurse -Force
 
 ## 工作方式
 
-两个半区，同一份代码包：
+同一个包，两处运行环境：
 
-- **浏览器半区** `lib/client.js`：监听 `copy` / `Ctrl+C`，用 `[data-conversation-scroll]`、`[data-chat-turn]`、`[data-conversation-session]` 定位选区与轮次；自己画提示条、面板和 Markdown（**不复用**应用内部的 Markdown 组件——它会动态加载 shiki/katex，在真实模块加载器里拿不到资源会在渲染期抛错）。
-- **宿主半区** `lib/index.js`：注册 `POST /plugin-explain/stream`，读会话历史 → 拼 messages → `ctx.llm.stream(...)` → 以 SSE 回推 `text-delta`。
+- **浏览器侧** `lib/client.js`（跑在页面里）：监听 `copy` / `Ctrl+C`，用 `[data-conversation-scroll]`、`[data-chat-turn]`、`[data-conversation-session]` 定位选区与轮次；自己画提示条、面板和 Markdown（**不复用**应用内部的 Markdown 组件——它会动态加载 shiki/katex，在真实模块加载器里拿不到资源会在渲染期抛错）。
+- **宿主侧** `lib/index.js`（跑在 Node 进程里）：注册 `POST /plugin-explain/stream`，读会话历史 → 拼 messages → `ctx.llm.stream(...)` → 以 SSE 回推 `text-delta`。
 
 整条链路只有一次模型调用，会话日志零写入。
 
@@ -143,7 +143,7 @@ curl -s -X POST http://127.0.0.1:<port>/plugin-explain/stream \
 
 ## 开发
 
-没有构建步骤：`lib/*.js` 就是产物。宿主半区是 ESM，浏览器半区是 `window.__ModuleLoader__.load({ id, factory })` 的工厂形式。
+没有构建步骤：`lib/*.js` 就是产物。宿主侧用标准 ESM（`export function apply`）；浏览器侧由平台模块加载器投递，形式是 `window.__ModuleLoader__.load({ id, factory })` 的工厂，内部只有同步 `require`，因此不能写 `import`。一个包区分两处的办法是 `package.json`：`main` → 宿主侧，`exports["./client"]` → 浏览器侧，`dsh.client` 声明它要进浏览器名录。
 
 改完把文件复制进 profile 的 `node_modules`，重启窗口验证（客户端 bundle 只在启动时快照）。
 
@@ -157,3 +157,4 @@ curl -s -X POST http://127.0.0.1:<port>/plugin-explain/stream \
 ## License
 
 [MIT](LICENSE)
+
