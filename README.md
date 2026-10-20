@@ -24,7 +24,7 @@ DSH 的插件是 profile 级别的一条 Loader 记录，插件本体放 `node_m
 仓库里带了 `cordis.patch.yml`，`package.json` 也声明了 `dsh.bundle.patch`，所以可以直接：
 
 ```bash
-dsh plugin --profile desktop add github:<你的用户名>/dsh-plugin-side-explain
+dsh plugin --profile desktop add github:Echo-moli/dsh-plugin-side-explain
 ```
 
 （`desktop` 换成你用的 profile 名；`dsh plugin` 需要 DSH 自带的 pnpm。）
@@ -100,3 +100,4 @@ curl -s -X POST http://127.0.0.1:<port>/plugin-explain/stream \
 ## License
 
 MIT
+
