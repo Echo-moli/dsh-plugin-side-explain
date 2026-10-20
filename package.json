@@ -4,6 +4,18 @@
   "description": "选中 DSH 对话里的任意一段，在右侧面板里追问；问答不写回会话历史，主对话不滚动。",
   "type": "module",
   "license": "MIT",
+  "author": "Echo-moli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Echo-moli/dsh-plugin-side-explain.git"
+  },
+  "homepage": "https://github.com/Echo-moli/dsh-plugin-side-explain#readme",
+  "bugs": {
+    "url": "https://github.com/Echo-moli/dsh-plugin-side-explain/issues"
+  },
+  "scripts": {
+    "check": "node --check lib/index.js && node --check lib/client.js"
+  },
   "keywords": [
     "dsh",
     "deepseek-harness",

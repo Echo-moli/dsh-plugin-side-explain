@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="侧栏追问示意：左侧对话里选中一段，右侧面板流式给出解释">
+  <defs>
+    <style>
+      .bg { fill: #fbfbfd; }
+      .win { fill: #ffffff; stroke: #e3e3ea; stroke-width: 1; }
+      .bar { fill: #f4f4f7; }
+      .dot { fill: #d7d7de; }
+      .h1 { font: 600 15px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #1f1f24; }
+      .h2 { font: 600 13px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #1f1f24; }
+      .body { font: 13px/1.6 -apple-system, "Segoe UI", system-ui, sans-serif; fill: #3c3c44; }
+      .muted { font: 12px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #8a8a95; }
+      .bubble { fill: #f5f5f8; }
+      .bubble-ai { fill: #ffffff; stroke: #e8e8ef; }
+      .sel { fill: #3b6cff; fill-opacity: .16; }
+      .accent { fill: #3b6cff; }
+      .panel { fill: #ffffff; stroke: #e3e3ea; }
+      .panel-head { fill: #ffffff; stroke: #eeeef4; }
+      .quote { fill: #f6f7fb; }
+      .line { fill: #d9d9e2; }
+      .line-strong { fill: #c3c3cf; }
+      .btn { fill: #3b6cff; }
+      .btn-text { font: 600 12px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #ffffff; }
+      .chip { fill: #eef2ff; }
+      .chip-text { font: 600 12px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #3b6cff; }
+      .caption { font: 12px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #9a9aa5; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="960" height="540"/>
+  <rect class="win" x="40" y="30" width="880" height="450" rx="12"/>
+
+  <!-- 标题栏 -->
+  <path class="bar" d="M40 42a12 12 0 0 1 12-12h856a12 12 0 0 1 12 12v26H40z"/>
+  <circle class="dot" cx="64" cy="49" r="5"/>
+  <circle class="dot" cx="82" cy="49" r="5"/>
+  <circle class="dot" cx="100" cy="49" r="5"/>
+  <text class="muted" x="128" y="54">DeepSeek Harness · 长对话</text>
+
+  <!-- 左侧：对话 -->
+  <g transform="translate(64, 96)">
+    <rect class="bubble" x="0" y="0" width="300" height="54" rx="8"/>
+    <text class="muted" x="12" y="20">第 5 轮 · 你</text>
+    <text class="body" x="12" y="38">缓存失效后为什么要退避重试？</text>
+
+    <rect class="bubble-ai" x="0" y="66" width="420" height="126" rx="8"/>
+    <text class="muted" x="12" y="86">第 6 轮 · 助手</text>
+    <text class="body" x="12" y="106">退避重试是在回源或重建缓存失败时，用逐渐</text>
+    <text class="body" x="12" y="124">拉长的等待再试，避免大量请求同时压垮后端。</text>
+    <rect class="sel" x="8" y="130" width="330" height="20" rx="3"/>
+    <text class="body" x="12" y="145">同时要加上随机抖动，否则会同步重试。</text>
+    <text class="body" x="12" y="168">这正是 jitter 的作用。</text>
+
+    <rect class="bubble" x="0" y="206" width="250" height="40" rx="8"/>
+    <text class="muted" x="12" y="222">第 7 轮 · 你</text>
+    <text class="body" x="12" y="238">「收尾」</text>
+  </g>
+
+  <!-- 选中动作 -->
+  <g transform="translate(400, 300)">
+    <rect class="chip" x="0" y="0" width="96" height="26" rx="13"/>
+    <text class="chip-text" x="14" y="18">Ctrl + C</text>
+    <path d="M104 13h40" stroke="#c9c9d4" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <path d="M140 8l8 5-8 5z" fill="#c9c9d4"/>
+  </g>
+
+  <!-- 右侧：面板 -->
+  <g transform="translate(556, 96)">
+    <rect class="panel" x="0" y="0" width="330" height="330" rx="10"/>
+
+    <!-- 头部 -->
+    <path class="panel-head" d="M0 10a10 10 0 0 1 10-10h310a10 10 0 0 1 10 10v30H0z"/>
+    <text class="h2" x="14" y="26">解释</text>
+    <text class="muted" x="56" y="26">第 6 轮</text>
+    <text class="muted" x="286" y="26">关闭</text>
+
+    <!-- 引用 -->
+    <rect class="quote" x="0" y="41" width="330" height="46"/>
+    <text class="muted" x="14" y="60">同时要加上随机抖动，否则会同步重试。</text>
+    <text class="muted" x="14" y="76">这正是 jitter 的作用。</text>
+
+    <!-- 要求输入 -->
+    <rect x="12" y="98" width="248" height="30" rx="8" fill="#fff" stroke="#dcdce6"/>
+    <text class="muted" x="24" y="118">补充要求：只讲第二点 / 举个反例…</text>
+    <rect class="btn" x="268" y="98" width="50" height="30" rx="8"/>
+    <text class="btn-text" x="282" y="118">追问</text>
+
+    <!-- 正文（流式） -->
+    <text class="h2" x="14" y="156">机制</text>
+    <rect class="line-strong" x="14" y="166" width="180" height="9" rx="4"/>
+    <rect class="line" x="14" y="184" width="298" height="9" rx="4"/>
+    <rect class="line" x="14" y="202" width="286" height="9" rx="4"/>
+    <rect class="line" x="14" y="220" width="300" height="9" rx="4"/>
+    <rect class="line" x="14" y="238" width="212" height="9" rx="4"/>
+    <rect class="line" x="14" y="262" width="120" height="9" rx="4"/>
+    <rect class="line" x="14" y="280" width="286" height="9" rx="4"/>
+
+    <!-- 底部 -->
+    <path d="M0 310h330" stroke="#eeeef4"/>
+    <text class="caption" x="14" y="324">deepseek-flash · 不写入会话 · Esc 关闭</text>
+  </g>
+
+  <!-- 主对话位置未动 -->
+  <g transform="translate(64, 470)">
+    <circle class="accent" cx="6" cy="6" r="4"/>
+    <text class="caption" x="20" y="10">主对话的滚动位置、锚点、轮次轨道都不受影响：问答只活在右侧面板里，不写会话日志。</text>
+  </g>
+</svg>
